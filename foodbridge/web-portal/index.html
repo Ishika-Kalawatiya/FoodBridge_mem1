@@ -3,79 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FoodBridge: surplus food to nearby people</title>
-    <style>
-      :root { --paper:#f3efe4; --ink:#1d2b24; --green:#2f6f4f; --yellow:#c99a1a; --red:#b3392b; --line:#cfc8b4; }
-      * { box-sizing: border-box; }
-      body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.5 Georgia,"Times New Roman",serif; }
-      main { max-width:1100px; margin:0 auto; padding:32px 16px 64px; }
-      h1 { font-size:clamp(1.8rem,5vw,2.8rem); line-height:1.1; margin:0 0 8px; }
-      .impact { font-size:1.25rem; margin:0; color:var(--green); font-weight:bold; }
-      .muted { color:#5d6a60; margin:4px 0 0; }
-      form { display:grid; gap:8px; margin:20px 0; padding:16px; border:2px solid var(--ink); max-width:520px; }
-      form[hidden], div[hidden] { display:none; }
-      input, select, textarea, button { font:inherit; padding:8px; border:1px solid var(--ink); background:#fff; }
-      button { background:var(--green); color:#fff; cursor:pointer; border:0; }
-      button:hover { background:#255a40; }
-      .bar { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:16px 0; }
-      .bar button { background:transparent; color:var(--ink); border:1px solid var(--ink); }
-      .board { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:24px; }
-      .col h3 { margin:0 0 8px; padding-bottom:6px; border-bottom:2px solid var(--ink); display:flex; justify-content:space-between; }
-      .card { background:#fff; border:1px solid var(--line); border-left:6px solid var(--line); padding:10px; margin-bottom:10px; }
-      .card h4 { margin:0; } .card p { margin:4px 0; font-size:.92rem; }
-      .card.green { border-left-color:var(--green); } .card.yellow { border-left-color:var(--yellow); } .card.red { border-left-color:var(--red); }
-      .meals { font-weight:bold; } .timer { font-weight:bold; } .who { color:#5d6a60; }
-      .empty { color:#8a8a78; font-size:.9rem; }
-      #toast { min-height:1.4em; color:var(--red); font-weight:bold; }
-      footer { margin-top:40px; font-size:.9rem; }
-      :focus-visible { outline:3px solid var(--yellow); outline-offset:2px; }
-      @media (max-width:860px) { .board { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-      @media (max-width:520px) { .board { grid-template-columns:1fr; } }
-    </style>
+    <meta name="theme-color" content="#faf8f3" />
+    <meta name="description" content="FoodBridge connects surplus food with volunteers and the neighbors who need it." />
+    <title>FoodBridge — Good food goes further</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <main>
-      <h1>Surplus food, matched to nearby people before it spoils</h1>
-      <p class="impact" id="impact">Loading impact...</p>
-      <p class="muted" id="total"></p>
-
-      <form id="join">
-        <strong>Join FoodBridge</strong>
-        <input name="name" placeholder="Your name" required maxlength="60" />
-        <select name="role" required>
-          <option value="donor">Restaurant, canteen, hostel or event (donor)</option>
-          <option value="volunteer">Volunteer</option>
-          <option value="ngo">NGO or community group</option>
-        </select>
-        <input name="org" placeholder="Organisation (e.g. Green Valley College)" maxlength="80" />
-        <button type="submit">Join</button>
-      </form>
-
-      <div class="bar" id="session" hidden>
-        <span id="who"></span><span class="muted" id="role-help"></span>
-        <button id="logout" type="button">Switch user</button>
-      </div>
-
-      <form id="post" hidden>
-        <strong>Post surplus food</strong>
-        <input name="title" placeholder="What is available? (e.g. Veg biryani)" required maxlength="80" />
-        <input name="meals" type="number" min="1" placeholder="Number of meals" required />
-        <input name="pickupAddress" placeholder="Pickup address" required maxlength="160" />
-        <select name="expiresInMinutes" required>
-          <option value="180">Safe to eat for 3 hours</option>
-          <option value="120">Safe to eat for 2 hours</option>
-          <option value="60">Safe to eat for 1 hour</option>
-          <option value="30">Safe to eat for 30 minutes</option>
-        </select>
-        <textarea name="notes" placeholder="Notes (veg/non-veg, packaging, gate number)" rows="2"></textarea>
-        <button type="submit">Post listing</button>
-      </form>
-
-      <div id="toast" role="status"></div>
-      <div class="board" id="board"></div>
-
-      <footer>Taking a break? <a href="http://localhost:5173">Play Rescue Run</a>, our side game. Game points are for fun and are not counted as real meals.</footer>
-    </main>
-    <script type="module" src="/src/main.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

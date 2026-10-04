@@ -40,7 +40,33 @@ export async function submitScore(req, res) {
   }
 }
 
-export async function getLeaderboard(_req, res) {
+export async function getLeaderboard(req, res) {
+  if (req.query.type === "volunteers") {
+    try {
+      const { rows } = await pool.query(
+        `WITH volunteer_stats AS (
+           SELECT u.id, u.name, COUNT(l.id)::int AS deliveries,
+                  MIN(EXTRACT(EPOCH FROM (l.collected_at - l.claimed_at)) / 60.0) AS fastest_minutes
+           FROM users u
+           LEFT JOIN listings l ON l.volunteer_id = u.id
+             AND l.status IN ('collected', 'distributed')
+           WHERE u.role = 'volunteer'
+           GROUP BY u.id, u.name
+         )
+         SELECT name, deliveries, deliveries * 100 AS score,
+                ROUND(fastest_minutes::numeric, 1) AS fastest_minutes,
+                RANK() OVER (ORDER BY deliveries DESC, fastest_minutes ASC NULLS LAST)::int AS rank
+         FROM volunteer_stats
+         WHERE deliveries > 0
+         ORDER BY rank, name
+         LIMIT 10`
+      );
+      return res.json(rows);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Could not load volunteer leaderboard" });
+    }
+  }
   try {
     const { rows } = await pool.query(
       `SELECT p.name, MAX(s.points) AS best_points,

@@ -1,0 +1,3 @@
+export default function Footer() {
+  return <footer className="site-footer"><div className="footer-main section-wrap"><a className="brand" href="#home"><span className="brand-mark">f<span>+</span></span><span>foodbridge<small>GOOD FOOD GOES FURTHER</small></span></a><p>Bridging extra food to<br />the people who need it.</p><nav aria-label="Footer navigation"><a href="mailto:hello@foodbridge.org?subject=About%20FoodBridge">About</a><a href="mailto:hello@foodbridge.org">Contact</a><a href="mailto:hello@foodbridge.org?subject=Privacy%20Policy">Privacy Policy</a></nav></div><div className="footer-bottom section-wrap"><span>© {new Date().getFullYear()} FoodBridge. Made with care, shared with everyone.</span><span>✳ GOOD FOOD GOES FURTHER</span></div></footer>;
+}
